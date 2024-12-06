@@ -13,7 +13,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     // 요청 보내기 전 수행할 작업
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('onion_token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
