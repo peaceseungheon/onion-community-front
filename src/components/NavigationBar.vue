@@ -18,7 +18,7 @@
             </RouterLink>
           </div>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center space-x-4">
           <RouterLink 
             v-if="!isLoggedIn" 
             to="/login" 
@@ -50,7 +50,7 @@ const authStore = useAuthStore()
 
 const routes = [
   { path: '/', name: '홈' },
-  { path: '/about', name: '소개' }
+  { path: '/board', name: '게시판' }
 ]
 
 const isLoggedIn = computed(() => authStore.isAuthenticated)
