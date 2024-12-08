@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50">
-    <div class="w-[390px] min-h-screen bg-white p-6">
+  <div class="min-h-screen bg-gray-50">
+    <div class="container mx-auto min-h-screen bg-white p-6">
       <div>
         <h2 class="text-center text-2xl font-bold text-gray-900 mb-8">
           로그인
