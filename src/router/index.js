@@ -10,12 +10,6 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      // 지연 로딩을 사용하여 성능 최적화
-      component: () => import('@/views/AboutView.vue')
-    },
-    {
       path: '/signup',
       name: 'signup',
       component: () => import('@/views/SignupView.vue')
@@ -24,6 +18,22 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('@/views/LoginView.vue')
+    },
+    {
+      path: '/board',
+      name: 'board',
+      component: () => import('../views/BoardView.vue')
+    },
+    {
+      path: '/post/create',
+      name: 'createPost',
+      component: () => import('../views/CreatePostView.vue')
+    },
+    {
+      path: '/board/:boardId/create',
+      name: 'createPost',
+      component: () => import('@/views/CreatePostView.vue'),
+      props: true
     }
   ]
 })
