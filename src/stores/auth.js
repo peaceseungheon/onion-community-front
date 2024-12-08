@@ -28,10 +28,11 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const logout = () => {
-    token.value = null
-    user.value = null
-    localStorage.removeItem('onion_token')
-    router.push('/login')
+    ajax.post('/users/logout').then(_res=> {
+      token.value = null
+      localStorage.removeItem('onion_token')
+      router.push('/login')
+    })
   }
 
   return {
