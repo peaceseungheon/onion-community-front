@@ -31,9 +31,14 @@ const router = createRouter({
     },
     {
       path: '/board/:boardId/create',
-      name: 'createPost',
+      name: 'createBoardPost',
       component: () => import('@/views/CreatePostView.vue'),
       props: true
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: () => import('@/views/ChatView.vue')
     }
   ]
 })
