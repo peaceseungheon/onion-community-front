@@ -4,8 +4,9 @@ const ajax = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, // API 서버 기본 주소
   timeout: 10000, // 요청 제한시간: 10초
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
 })
 
 // 요청 인터셉터 추가
