@@ -3,10 +3,10 @@
     <div class="flex-1 overflow-y-auto p-4 space-y-4" ref="messageContainer">
       <div v-for="(message, index) in messages" :key="index" 
            class="flex flex-col" 
-           :class="message.isMine ? 'items-end' : 'items-start'">
+           :class="message.userNo === authStore.user.userNo ? 'items-end' : 'items-start'">
         <div class="max-w-[70%] break-words rounded-lg p-3"
-             :class="message.isMine ? 'bg-blue-500 text-white' : 'bg-gray-200'">
-          <p class="text-sm">{{ message.text }}</p>
+             :class="message.userNo === authStore.user.userNo ? 'bg-blue-500 text-white' : 'bg-gray-200'">
+          <p class="text-sm">{{ message.message }}</p>
           <span class="text-xs mt-1 opacity-70">{{ formatTime(message.timestamp) }}</span>
         </div>
       </div>
@@ -33,26 +33,24 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, nextTick, onUnmounted } from 'vue';
-import { connect, disconnect, chat } from '@/utils/websocket';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import { useChatStore } from '@/stores/chat';
+import { useAuthStore } from '@/stores/auth'
+import type { IChatMessage } from '@/interface/chat';
 
-interface Message {
-  text: string;
-  isMine: boolean;
-  timestamp: number;
-}
-
+const authStore = useAuthStore();
+const chatStore = useChatStore();
 const newMessage = ref<string>('');
-const messages = ref<Message[]>([]);
+const messages = chatStore.messages
 const messageContainer = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-  connect();
+  chatStore.connect();
 });
 
 onUnmounted(() => {
-  disconnect();
+  chatStore.disconnect();
 });
 
 watch(messages, () => {
@@ -65,12 +63,12 @@ watch(messages, () => {
 
 const sendMessage = (): void => {
   if (!newMessage.value.trim()) return;
-  chat(newMessage.value);
-  messages.value.push({
-    text: newMessage.value,
-    isMine: true,
+  const message: IChatMessage = {
+    message: newMessage.value,
+    userNo: authStore.user.userNo,
     timestamp: Date.now(),
-  });
+  };
+  chatStore.chat(message);
   newMessage.value = '';
 };
 
