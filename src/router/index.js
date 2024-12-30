@@ -36,6 +36,12 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/board/:boardId/article/:articleId/edit',
+      name: 'editPost',
+      component: () => import('@/views/EditPostView.vue'),
+      props: true
+    },
+    {
       path: '/chat',
       name: 'chat',
       component: () => import('@/views/ChatView.vue')
