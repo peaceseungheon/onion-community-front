@@ -42,7 +42,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth.ts'
 
 const router = useRouter()
 const route = useRoute()
@@ -61,5 +61,6 @@ const isCurrentRoute = (path) => {
 
 const handleLogout = () => {
   authStore.logout()
+  router.push('/login')
 }
 </script>
