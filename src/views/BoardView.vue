@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ajax from '@/api/axios'
+import ajax from '@/lib/axios'
 import { useAuthStore } from '../stores/auth';
 
 const route = useRoute()

@@ -44,7 +44,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Editor from '@/components/Editor.vue'
-import ajax from '@/api/axios'
+import ajax from '@/lib/axios'
 
 const route = useRoute()
 const router = useRouter()

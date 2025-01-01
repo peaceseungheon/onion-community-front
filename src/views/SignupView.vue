@@ -28,7 +28,7 @@
 <script setup>
 import { Form } from 'vee-validate'
 import * as yup from 'yup'
-import ajax from '@/api/axios'
+import ajax from '@/lib/axios'
 import FormInput from '@/components/FormInput.vue'
 
 const schema = yup.object({

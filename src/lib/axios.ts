@@ -1,5 +1,7 @@
 import axios from 'axios'
+import { useCookies } from 'vue3-cookies'
 
+const { cookies } = useCookies()
 const ajax = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, // API 서버 기본 주소
   timeout: 10000, // 요청 제한시간: 10초
@@ -12,7 +14,7 @@ const ajax = axios.create({
 // 요청 인터셉터 추가
 ajax.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('onion_token')
+    const token = cookies.get('onion_token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
