@@ -29,12 +29,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import FormInput from '@/components/FormInput.vue'
-import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -53,13 +53,12 @@ const schema = yup.object({
     )
 })
 
-const onSubmit = async (values) => {
+const onSubmit = async (values: any) => {
   try {
     await authStore.login(values.email, values.password)
     alert('로그인에 성공하였습니다.')
     router.push('/')
   } catch (error) {
-    console.error(error.message)
     alert('로그인에 실패하였습니다.')
   }
 }
