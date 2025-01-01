@@ -1,23 +1,26 @@
 import { defineStore } from 'pinia'
-import ajax from '@/api/axios.js'
+import ajax from '@/lib/axios'
+import { useCookies } from 'vue3-cookies'
+
+const { cookies } = useCookies()
 
 export const useAuthStore = defineStore('auth', {
-  state: ()=> ({
-    user: localStorage.getItem('onion_user') ? JSON.parse(localStorage.getItem('onion_user') as string) : {} as any, 
-    token: localStorage.getItem('onion_token') || '' as string,
-    isAuthenticated: localStorage.getItem('onion_token') ? true : false
+  state: () => ({
+    user: cookies.get('onion_user') || {} as any,
+    token: cookies.get('onion_token') || '' as string,
+    isAuthenticated: cookies.get('onion_token') ? true : false
   }),
 
   actions: {
-    setToken(newToken:string) {
+    setToken(newToken: string) {
       this.token = newToken
-      localStorage.setItem('onion_token', newToken)
+      cookies.set('onion_token', newToken)
     },
-    setUser(user: any){
+    setUser(user: any) {
       this.user = user
-      localStorage.setItem('onion_user', JSON.stringify(user))
+      cookies.set('onion_user', JSON.stringify(user))
     },
-    async login (userId:string, password:string) {
+    async login(userId: string, password: string) {
       try {
         const response = await ajax.post('/users/login', {
           userId,
@@ -34,9 +37,12 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     logout() {
-      ajax.post('/users/logout').then((_res: any)=> {
+      ajax.post('/users/logout').then((_res: any) => {
         this.token = ''
-        localStorage.removeItem('onion_token')
+        this.user = {}
+        cookies.remove('onion_token')
+        cookies.remove('onion_user')
+        this.isAuthenticated = false
       })
     }
   }
