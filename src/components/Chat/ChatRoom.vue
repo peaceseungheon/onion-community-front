@@ -46,7 +46,7 @@ const messages = chatStore.messages
 const messageContainer = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-  chatStore.connect();
+  chatStore.connect(1);
 });
 
 onUnmounted(() => {
